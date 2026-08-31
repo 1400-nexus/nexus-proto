@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package nexus.ipc;
+
+import "common.proto";
+
+message SenderHello {
+  uint32 sender_id = 1;
+  uint32 pid = 2;
+  bytes proto_hash = 3;
+}
+
+message AssignSession {
+  nexus.common.Manifest manifest = 1;
+  uint32 total_senders = 2;
+  string target_host = 3;
+  uint32 target_port = 4;
+}
+
+message UpdateRate {
+  string session_id = 1;
+  uint64 rate_bps = 2;
+}
+
+message Abort {
+  string session_id = 1;
+}
+
+message SenderProgress {
+  string session_id = 1;
+  uint64 stripes_done = 2;
+  uint64 packets_sent = 3;
+  uint64 bytes_sent = 4;
+}
+
+message SessionComplete {
+  string session_id = 1;
+  uint64 packets_sent = 2;
+}
+
+message Heartbeat {
+  uint32 process_id = 1;
+  uint64 timestamp_unix_ms = 2;
+}

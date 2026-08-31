@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package nexus.common;
+
+message Manifest {
+  string session_id = 1;
+  string filepath = 2;
+  uint64 file_size = 3;
+  bytes file_hash = 4;
+  uint32 k = 5;
+  uint32 n = 6;
+  uint32 block_bytes = 7;
+  uint32 total_blocks = 8;
+  uint32 sender_id = 9;
+  uint64 sender_bps_limit = 10;
+}
+
+message SessionEnd {
+  string session_id = 1;
+  uint32 total_blocks = 2;
+  bytes hash = 3;
+}
