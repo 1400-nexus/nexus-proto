@@ -1,150 +1,74 @@
 syntax = "proto3";
 
-// =============================================================================
-// rx.proto -- Receiver <-> Session Manager IPC (the RX machine).
-//
-// WHY A SEPARATE FILE AND A SEPARATE ENVELOPE:
-// ipc.proto covers File Monitor <-> Sender on the TX machine. Its Envelope has
-// no receiver messages in it, so the RX side currently has no contract at all.
-//
-// These could have been added to ipc.proto's Envelope, but keeping the
-// envelopes separate means a receiver physically cannot parse a sender message
-// as valid -- the oneof field numbers do not overlap in meaning. On a link that
-// deliberately corrupts and misroutes traffic, that separation is cheap
-// insurance.
-//
-// TRANSPORT: Unix domain sockets, SOCK_SEQPACKET, so message boundaries are
-// preserved by the kernel and no length-prefix framing is needed.
-// =============================================================================
-
 package nexus.rx;
 
-// Reuses nexus.common.Manifest so a receiver forwards exactly the bytes it saw
-// on the wire, with no re-encoding step that could introduce a difference.
 import "common.proto";
 
-// Reuses nexus.ipc.Heartbeat rather than defining a second identical message.
-// Importing a leaf message across files is normal and does not couple the
-// envelopes -- Heartbeat carries no direction-specific meaning.
 import "ipc.proto";
 
-// =============================================================================
-// SECTION 1 -- Receiver -> Manager
-// =============================================================================
-
-// First message on connect. The manager compares proto_hash against its own and
-// kills the process tree on mismatch -- that catches "someone regenerated the
-// contract and did not rebuild" in one second instead of two hours.
 message ReceiverHello {
-  uint32 receiver_id = 1;  // 0..2
-  uint32 pid         = 2;
-  uint32 listen_port = 3;  // 9001 / 9002 / 9003
-  bytes  proto_hash  = 4;  // same value SenderHello reports on the TX side
+  uint32 receiver_id = 1;
+  uint32 pid = 2;
+  uint32 listen_port = 3;
+  bytes proto_hash = 4;
 }
 
-// A receiver forwards the FIRST manifest it sees for a session it does not know.
-// The manager is the sole creator of sessions, so all three receivers can send
-// this for the same session with no race: the first one wins, the rest are
-// ignored as duplicates.
 message ManifestSeen {
-  uint32                receiver_id = 1;
-  nexus.common.Manifest manifest    = 2;  // verbatim, as received off the wire
+  uint32 receiver_id = 1;
+  nexus.common.Manifest manifest = 2;
 }
 
-// THE AUTHORITATIVE PROGRESS RECORD.
-//
-// The manager builds its completion state from these messages. That is what
-// satisfies the requirement that inter-process data transfer uses Unix domain
-// sockets; the shared-memory bitmap is a removable cross-check layered on top,
-// not the source of truth.
-//
-// block_ids is repeated so a receiver can batch several decodes into one
-// message under load instead of one syscall per block. A single block id is
-// just a list of length one.
 message BlockDecoded {
-  string          session_id  = 1;
-  uint32          receiver_id = 2;
-  repeated uint32 block_ids   = 3;
+  string session_id = 1;
+  uint32 receiver_id = 2;
+  repeated uint32 block_ids = 3;
 }
 
-// Periodic counters, aggregated by the manager into the unified status display.
-//
-// kernel_drops is the important one: packets the kernel discarded because the
-// receive queue was full. Those are invisible in application logs, so without
-// this counter you cannot distinguish "the router dropped it" from "we were too
-// slow to read it" -- and the fixes for those are completely different.
 message ReceiverStats {
-  uint32 receiver_id          = 1;
-  uint64 pkts_ok              = 2;
-  uint64 crc_fail             = 3;  // bit flips caught before the parser ran
-  uint64 bad_magic            = 4;  // foreign or stale traffic
-  uint64 unparsable           = 5;  // passed CRC, protobuf still rejected it
-  uint64 duplicates           = 6;
-  uint64 no_session           = 7;  // arrived before the Manifest; expected, not an error
-  uint64 arena_exhausted      = 8;  // back-pressure: decode is behind the wire.
-                                    // A deliberate drop, i.e. just another erasure.
-  uint64 kernel_drops         = 9;
+  uint32 receiver_id = 1;
+  uint64 pkts_ok = 2;
+  uint64 crc_fail = 3;
+  uint64 bad_magic = 4;
+  uint64 unparsable = 5;
+  uint64 duplicates = 6;
+  uint64 no_session = 7;
+  uint64 arena_exhausted = 8;
+  uint64 kernel_drops = 9;
   uint32 arena_high_water_pct = 10;
 }
 
-// =============================================================================
-// SECTION 2 -- Manager -> Receiver
-// =============================================================================
-
-// Sent once after ReceiverHello is accepted.
 message Config {
-  string shm_name    = 1;  // e.g. "/nexus.rx"
-  string staging_dir = 2;  // decode target, before verification
-  string journal_dir = 3;  // per-receiver append-only journals
+  string shm_name = 1;
+  string staging_dir = 2;
+  string journal_dir = 3;
 }
 
-// Broadcast to all three receivers when the manager creates a session.
-// Tells them where in shared memory this session's bookkeeping lives.
-//
-// k, n and block_bytes are echoed from the Manifest so a receiver never has to
-// hold session parameters of its own -- it reads them here and stays stateless.
 message SessionOpen {
-  string session_id         = 1;
-  string dest_path          = 2;   // inside staging_dir
-  uint32 total_blocks       = 3;
-  uint32 k                  = 4;
-  uint32 n                  = 5;
-  uint32 block_bytes        = 6;
-  uint64 block_table_offset = 7;   // byte offset into the shm segment
-  uint64 bitmap_offset      = 8;
+  string session_id = 1;
+  string dest_path = 2;
+  uint32 total_blocks = 3;
+  uint32 k = 4;
+  uint32 n = 5;
+  uint32 block_bytes = 6;
+  uint64 block_table_offset = 7;
+  uint64 bitmap_offset = 8;
 }
 
-// Teardown after a session is verified, failed, or abandoned.
 message PurgeSession {
   string session_id = 1;
-  string reason     = 2;  // free text, for the log only
+  string reason = 2;
 }
-
-// =============================================================================
-// SECTION 3 -- Envelope
-//
-// Every message on the RX socket is wrapped in this. The receiver of a datagram
-// calls WhichOneof("msg") to learn which field is set, and dispatches on that
-// string. Adding a message type therefore means registering one more handler,
-// not editing a dispatcher.
-//
-// Field numbers are grouped by direction purely for readability. They are
-// permanent identifiers: never renumber a field, and if one is ever removed,
-// mark its number `reserved` so it cannot be silently reused.
-// =============================================================================
 
 message RxEnvelope {
   oneof msg {
-    // receiver -> manager
-    ReceiverHello     receiver_hello = 1;
-    ManifestSeen      manifest_seen  = 2;
-    BlockDecoded      block_decoded  = 3;
-    ReceiverStats     receiver_stats = 4;
-    nexus.ipc.Heartbeat heartbeat    = 5;
+    ReceiverHello receiver_hello = 1;
+    ManifestSeen manifest_seen = 2;
+    BlockDecoded block_decoded = 3;
+    ReceiverStats receiver_stats = 4;
+    nexus.ipc.Heartbeat heartbeat = 5;
 
-    // manager -> receiver
-    Config            config         = 10;
-    SessionOpen       session_open   = 11;
-    PurgeSession      purge_session  = 12;
+    Config config = 10;
+    SessionOpen session_open = 11;
+    PurgeSession purge_session = 12;
   }
 }
