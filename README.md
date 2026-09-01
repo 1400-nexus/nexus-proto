@@ -17,7 +17,7 @@ If you are **adding or editing** `.proto` files and running the compilation scri
 
 
 2. **TypeScript Protoc Plugin (`ts-proto`)**:
-* Run: `npm install -g ts-proto`
+* Run: `npm install -g protoc-gen-ts`
 
 
 

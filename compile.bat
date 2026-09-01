@@ -4,6 +4,8 @@ setlocal enabledelayedexpansion
 set PROTO_DIR=proto
 set OUT_DIR=generated
 
+for %%I in ("%PROTO_DIR%") do set "ABS_PROTO_DIR=%%~fI"
+
 if not exist "%OUT_DIR%\cpp" mkdir "%OUT_DIR%\cpp"
 if not exist "%OUT_DIR%\python" mkdir "%OUT_DIR%\python"
 if not exist "%OUT_DIR%\typescript" mkdir "%OUT_DIR%\typescript"
@@ -26,7 +28,7 @@ if "%PROTO_FILES%"=="" (
 echo Compiling Protobuf files for C++, Python, and TypeScript...
 
 protoc ^
-  --proto_path="%PROTO_DIR%" ^
+  --proto_path="%ABS_PROTO_DIR%" ^
   --cpp_out="%OUT_DIR%\cpp" ^
   --python_out="%OUT_DIR%\python" ^
   --pyi_out="%OUT_DIR%\python" ^
