@@ -69,3 +69,35 @@ class Heartbeat(_message.Message):
     process_id: int
     timestamp_unix_ms: int
     def __init__(self, process_id: _Optional[int] = ..., timestamp_unix_ms: _Optional[int] = ...) -> None: ...
+
+class LocalCongestion(_message.Message):
+    __slots__ = ("session_id", "enobufs_count", "qdisc_drops", "current_rate_bps")
+    SESSION_ID_FIELD_NUMBER: _ClassVar[int]
+    ENOBUFS_COUNT_FIELD_NUMBER: _ClassVar[int]
+    QDISC_DROPS_FIELD_NUMBER: _ClassVar[int]
+    CURRENT_RATE_BPS_FIELD_NUMBER: _ClassVar[int]
+    session_id: str
+    enobufs_count: int
+    qdisc_drops: int
+    current_rate_bps: int
+    def __init__(self, session_id: _Optional[str] = ..., enobufs_count: _Optional[int] = ..., qdisc_drops: _Optional[int] = ..., current_rate_bps: _Optional[int] = ...) -> None: ...
+
+class Envelope(_message.Message):
+    __slots__ = ("sender_hello", "heartbeat", "sender_progress", "session_complete", "local_congestion", "assign_session", "update_rate", "abort")
+    SENDER_HELLO_FIELD_NUMBER: _ClassVar[int]
+    HEARTBEAT_FIELD_NUMBER: _ClassVar[int]
+    SENDER_PROGRESS_FIELD_NUMBER: _ClassVar[int]
+    SESSION_COMPLETE_FIELD_NUMBER: _ClassVar[int]
+    LOCAL_CONGESTION_FIELD_NUMBER: _ClassVar[int]
+    ASSIGN_SESSION_FIELD_NUMBER: _ClassVar[int]
+    UPDATE_RATE_FIELD_NUMBER: _ClassVar[int]
+    ABORT_FIELD_NUMBER: _ClassVar[int]
+    sender_hello: SenderHello
+    heartbeat: Heartbeat
+    sender_progress: SenderProgress
+    session_complete: SessionComplete
+    local_congestion: LocalCongestion
+    assign_session: AssignSession
+    update_rate: UpdateRate
+    abort: Abort
+    def __init__(self, sender_hello: _Optional[_Union[SenderHello, _Mapping]] = ..., heartbeat: _Optional[_Union[Heartbeat, _Mapping]] = ..., sender_progress: _Optional[_Union[SenderProgress, _Mapping]] = ..., session_complete: _Optional[_Union[SessionComplete, _Mapping]] = ..., local_congestion: _Optional[_Union[LocalCongestion, _Mapping]] = ..., assign_session: _Optional[_Union[AssignSession, _Mapping]] = ..., update_rate: _Optional[_Union[UpdateRate, _Mapping]] = ..., abort: _Optional[_Union[Abort, _Mapping]] = ...) -> None: ...

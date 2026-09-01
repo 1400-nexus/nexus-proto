@@ -42,3 +42,25 @@ message Heartbeat {
   uint32 process_id = 1;
   uint64 timestamp_unix_ms = 2;
 }
+
+message LocalCongestion {
+  string session_id = 1;
+  uint64 enobufs_count = 2;
+  uint64 qdisc_drops = 3;
+  uint64 current_rate_bps = 4;
+}
+
+
+message Envelope {
+  oneof msg {
+    SenderHello     sender_hello     = 1;
+    Heartbeat       heartbeat        = 2;
+    SenderProgress  sender_progress  = 3;
+    SessionComplete session_complete = 4;
+    LocalCongestion local_congestion = 5;
+
+    AssignSession   assign_session   = 6;
+    UpdateRate      update_rate      = 7;
+    Abort           abort            = 8;
+  }
+}
