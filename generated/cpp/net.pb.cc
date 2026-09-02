@@ -33,6 +33,8 @@ PROTOBUF_CONSTINIT ::google::protobuf::internal::ReflectionData
         {&::_pbi::kDescriptorMethods, &::descriptor_table_net_2eproto, /* tracker*/ nullptr,},
         // ::nexus::net::NetworkSpeedState
         {&::_pbi::kDescriptorMethods, &::descriptor_table_net_2eproto, /* tracker*/ nullptr,},
+        // ::nexus::net::Frame
+        {&::_pbi::kDescriptorMethods, &::descriptor_table_net_2eproto, /* tracker*/ nullptr,},
 };
 }  // namespace
 #endif
@@ -366,6 +368,169 @@ const ::_pbi::ClassData* DataPacket_get_class_data() {
 }
 }  // namespace
 #endif  // PROTOBUF_CUSTOM_VTABLE
+class Frame::_Internal {
+ public:
+  static constexpr ::int32_t kOneofCaseOffset =
+      PROTOBUF_FIELD_OFFSET(::nexus::net::Frame, _impl_._oneof_case_);
+};
+
+constexpr Frame::ParseTableT_ Frame::InternalGenerateParseTable_(const ::_pbi::ClassData* class_data) {
+  return ParseTableT_{
+    {
+      PROTOBUF_FIELD_OFFSET(Frame,
+                            _impl_._cached_size_),  // no hasbits
+      0, // no _extensions_
+      3, 0,  // max_field_number, fast_idx_mask
+      offsetof(ParseTableT_, field_lookup_table),
+      4294967288,  // skipmap
+      offsetof(ParseTableT_, field_entries),
+      3,  // num_field_entries
+      3,  // num_aux_entries
+      offsetof(ParseTableT_, aux_entries),
+      class_data,
+      nullptr,  // post_loop_handler
+      ::_pbi::TcParser::MpUnknownFields,  // fallback
+      #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+      ::_pbi::TcParser::GetTable<::nexus::net::Frame>(),  // to_prefetch
+      #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+    }, {{
+      // .nexus.common.Manifest manifest = 2;
+      {::_pbi::TcParser::FastMiniParse1,
+       {18, ::uint8_t{6},
+        ::uint32_t{
+            PROTOBUF_FIELD_OFFSET(ParseTableT_, field_entries) +
+            sizeof(_pbi::TcParseTableBase::FieldEntry) * 1}}},
+    }}, {{
+      65535, 65535
+    }}, {{
+      // .nexus.net.DataPacket data = 1;
+      {PROTOBUF_FIELD_OFFSET(Frame, _impl_.msg_.data_), _Internal::kOneofCaseOffset + 0, 0, (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+      // .nexus.common.Manifest manifest = 2;
+      {PROTOBUF_FIELD_OFFSET(Frame, _impl_.msg_.manifest_), _Internal::kOneofCaseOffset + 0, 1, (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+      // .nexus.common.SessionEnd end = 3;
+      {PROTOBUF_FIELD_OFFSET(Frame, _impl_.msg_.end_), _Internal::kOneofCaseOffset + 0, 2, (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    }},
+    {{
+        #ifndef PROTOBUF_MESSAGE_GLOBALS
+        {::_pbi::TcParser::GetTable<::nexus::net::DataPacket>()},
+        #else
+        {::_pbi::FieldAuxMessageGlobals(), &::nexus::net::DataPacket_globals_},
+        #endif
+        #ifndef PROTOBUF_MESSAGE_GLOBALS
+        {::_pbi::TcParser::GetTable<::nexus::common::Manifest>()},
+        #else
+        {::_pbi::FieldAuxMessageGlobals(), &::nexus::common::Manifest_globals_},
+        #endif
+        #ifndef PROTOBUF_MESSAGE_GLOBALS
+        {::_pbi::TcParser::GetTable<::nexus::common::SessionEnd>()},
+        #else
+        {::_pbi::FieldAuxMessageGlobals(), &::nexus::common::SessionEnd_globals_},
+        #endif
+    }},
+    {{
+    }},
+  };
+}
+
+
+inline constexpr Frame::Impl_::Impl_(
+    [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
+    ::_pbi::ConstantInitialized) noexcept
+      : msg_{},
+        _oneof_case_{} {}
+
+template <typename>
+constexpr Frame::Frame(::_pbi::ConstantInitialized,
+                       const ::_pbi::ClassData* PROTOBUF_NONNULL class_data)
+    : Super_(
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+          class_data
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          ),
+      _impl_(internal_visibility(), ::_pbi::ConstantInitialized()) {
+}
+inline void* PROTOBUF_NONNULL Frame::PlacementNew_(
+    const void* PROTOBUF_NONNULL, void* PROTOBUF_NONNULL mem,
+    ::google::protobuf::Arena* PROTOBUF_NULLABLE arena) {
+  return ::new (mem) Frame(arena);
+}
+constexpr auto Frame::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(Frame), alignof(Frame));
+}
+constexpr auto Frame::InternalGenerateClassData_(
+    const MessageLite& prototype,
+    const ::google::protobuf::internal::TcParseTableBase* tc_table) {
+  return ::google::protobuf::internal::ClassDataFull{
+      ::google::protobuf::internal::ClassData{
+          &prototype,
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+          &_table_.header,
+#else
+          tc_table,
+#endif
+          nullptr,  // IsInitialized
+          &Frame::MergeImpl,
+          Super_::GetNewImpl<Frame>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+          &Frame::SharedDtor,
+          Super_::GetClearImpl<Frame>(), &Frame::ByteSizeLong,
+              &Frame::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          PROTOBUF_FIELD_OFFSET(Frame, _impl_._cached_size_),
+          false,
+      },
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+      &file_reflection_data[2],
+#else   // !PROTOBUF_MESSAGE_GLOBALS
+      &::_pbi::kDescriptorMethods,
+      &descriptor_table_net_2eproto,
+      nullptr,  // tracker
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+  };
+}
+struct FrameGlobalsTypeInternal : ::_pbi::MessageGlobalsBase {
+  constexpr FrameGlobalsTypeInternal()
+      :
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+        _default(::_pbi::ConstantInitialized{},
+                 Frame_class_data_.base())
+#else   // !PROTOBUF_MESSAGE_GLOBALS
+        MessageGlobalsBase(Frame::InternalGenerateClassData_(
+            _default, &Frame_globals_._table.header)),
+        _default(::_pbi::ConstantInitialized{}, GetClassData()),
+        _table(::_pbi::PrivateAccess::GenerateParseTable<Frame>(
+            GetClassData()))
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+  {
+  }
+  ~FrameGlobalsTypeInternal() {}
+  union {
+    alignas(::_pbi::kMaxMessageAlignment) Frame _default;
+  };
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+  decltype(::_pbi::PrivateAccess::GenerateParseTable<Frame>(
+      ::std::declval<const ::_pbi::ClassData*>())) _table;
+#endif
+};
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+static_assert(PROTOBUF_FIELD_OFFSET(FrameGlobalsTypeInternal, _default) ==
+              ::_pbi::MessageGlobalsBase::OffsetToDefault());
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PROTOBUF_MESSAGE_GLOBALS_CONST FrameGlobalsTypeInternal Frame_globals_
+        PROTOBUF_MESSAGE_GLOBALS_SECTION(.data.rel.ro);
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+namespace {
+const ::_pbi::ClassData* Frame_get_class_data() {
+#ifdef PROTOBUF_MESSAGE_GLOBALS
+  return Frame_globals_.GetClassData();
+#else
+  return Frame_class_data_.base();
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+}
+}  // namespace
+#endif  // PROTOBUF_CUSTOM_VTABLE
 }  // namespace net
 }  // namespace nexus
 static constexpr const ::_pb::EnumDescriptor* PROTOBUF_NONNULL* PROTOBUF_NULLABLE
@@ -395,37 +560,53 @@ const ::uint32_t
         0,
         2,
         1,
+        0x004, // bitmap
+        PROTOBUF_FIELD_OFFSET(::nexus::net::Frame, _impl_._oneof_case_[0]),
+        PROTOBUF_FIELD_OFFSET(::nexus::net::Frame, _impl_.msg_),
+        PROTOBUF_FIELD_OFFSET(::nexus::net::Frame, _impl_.msg_),
+        PROTOBUF_FIELD_OFFSET(::nexus::net::Frame, _impl_.msg_),
+        PROTOBUF_FIELD_OFFSET(::nexus::net::Frame, _impl_.msg_),
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
         {0, sizeof(::nexus::net::DataPacket)},
         {11, sizeof(::nexus::net::NetworkSpeedState)},
+        {20, sizeof(::nexus::net::Frame)},
 };
 static const ::_pbi::MessageGlobalsBase* PROTOBUF_NONNULL const
     file_message_globals[] = {
         &::nexus::net::DataPacket_globals_,
         &::nexus::net::NetworkSpeedState_globals_,
+        &::nexus::net::Frame_globals_,
 };
 const char descriptor_table_protodef_net_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\tnet.proto\022\tnexus.net\"V\n\nDataPacket\022\022\n\n"
-    "session_id\030\001 \001(\t\022\020\n\010block_id\030\002 \001(\r\022\021\n\tsy"
-    "mbol_id\030\003 \001(\r\022\017\n\007payload\030\004 \001(\014\"N\n\021Networ"
-    "kSpeedState\022\022\n\nsession_id\030\001 \001(\t\022\023\n\013burst"
-    "_index\030\002 \001(\r\022\020\n\010rate_bps\030\003 \001(\004b\006proto3"
+    "\n\tnet.proto\022\tnexus.net\032\014common.proto\"V\n\n"
+    "DataPacket\022\022\n\nsession_id\030\001 \001(\t\022\020\n\010block_"
+    "id\030\002 \001(\r\022\021\n\tsymbol_id\030\003 \001(\r\022\017\n\007payload\030\004"
+    " \001(\014\"N\n\021NetworkSpeedState\022\022\n\nsession_id\030"
+    "\001 \001(\t\022\023\n\013burst_index\030\002 \001(\r\022\020\n\010rate_bps\030\003"
+    " \001(\004\"\212\001\n\005Frame\022%\n\004data\030\001 \001(\0132\025.nexus.net"
+    ".DataPacketH\000\022*\n\010manifest\030\002 \001(\0132\026.nexus."
+    "common.ManifestH\000\022\'\n\003end\030\003 \001(\0132\030.nexus.c"
+    "ommon.SessionEndH\000B\005\n\003msgb\006proto3"
+};
+static const ::_pbi::DescriptorTable* PROTOBUF_NONNULL const
+    descriptor_table_net_2eproto_deps[1] = {
+        &::descriptor_table_common_2eproto,
 };
 static ::absl::once_flag descriptor_table_net_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_net_2eproto = {
     false,
     false,
-    198,
+    353,
     descriptor_table_protodef_net_2eproto,
     "net.proto",
     &descriptor_table_net_2eproto_once,
-    nullptr,
-    0,
-    2,
+    descriptor_table_net_2eproto_deps,
+    1,
+    3,
     schemas,
     file_message_globals,
     TableStruct_net_2eproto::offsets,
@@ -1025,6 +1206,376 @@ void NetworkSpeedState::InternalSwap(NetworkSpeedState* PROTOBUF_RESTRICT PROTOB
 }
 
 ::google::protobuf::Metadata NetworkSpeedState::GetMetadata() const {
+  return Super_::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+void Frame::set_allocated_data(::nexus::net::DataPacket* PROTOBUF_NULLABLE data) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_msg();
+  if (data) {
+    ::google::protobuf::Arena* submessage_arena = data->GetArena();
+    if (message_arena != submessage_arena) {
+      data = ::google::protobuf::internal::GetOwnedMessage(message_arena, data, submessage_arena);
+    }
+    set_has_data();
+    _impl_.msg_.data_ = data;
+  }
+  // @@protoc_insertion_point(field_set_allocated:nexus.net.Frame.data)
+}
+void Frame::set_allocated_manifest(::nexus::common::Manifest* PROTOBUF_NULLABLE manifest) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_msg();
+  if (manifest) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::Message*>(manifest)->GetArena();
+    if (message_arena != submessage_arena) {
+      manifest = ::google::protobuf::internal::GetOwnedMessage(message_arena, manifest, submessage_arena);
+    }
+    set_has_manifest();
+    _impl_.msg_.manifest_ = manifest;
+  }
+  // @@protoc_insertion_point(field_set_allocated:nexus.net.Frame.manifest)
+}
+void Frame::clear_manifest() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (msg_case() == kManifest) {
+    if (GetArena() == nullptr) {
+      delete _impl_.msg_.manifest_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.msg_.manifest_);
+    }
+    clear_has_msg();
+  }
+}
+void Frame::set_allocated_end(::nexus::common::SessionEnd* PROTOBUF_NULLABLE end) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_msg();
+  if (end) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::Message*>(end)->GetArena();
+    if (message_arena != submessage_arena) {
+      end = ::google::protobuf::internal::GetOwnedMessage(message_arena, end, submessage_arena);
+    }
+    set_has_end();
+    _impl_.msg_.end_ = end;
+  }
+  // @@protoc_insertion_point(field_set_allocated:nexus.net.Frame.end)
+}
+void Frame::clear_end() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (msg_case() == kEnd) {
+    if (GetArena() == nullptr) {
+      delete _impl_.msg_.end_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.msg_.end_);
+    }
+    clear_has_msg();
+  }
+}
+Frame::Frame(::google::protobuf::Arena* PROTOBUF_NULLABLE arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : Super_(arena, Frame_get_class_data()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : Super_(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:nexus.net.Frame)
+}
+PROTOBUF_NDEBUG_INLINE Frame::Impl_::Impl_(
+    [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
+    [[maybe_unused]] ::google::protobuf::Arena* PROTOBUF_NULLABLE arena, const Impl_& from,
+    [[maybe_unused]] const ::nexus::net::Frame& from_msg)
+      : msg_{},
+        _oneof_case_{from._oneof_case_[0]} {}
+
+Frame::Frame(
+    ::google::protobuf::Arena* PROTOBUF_NULLABLE arena,
+    const Frame& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : Super_(arena, Frame_get_class_data()) {
+
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : Super_(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  Frame* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  switch (msg_case()) {
+    case MSG_NOT_SET:
+      break;
+      case kData:
+        _impl_.msg_.data_ = Super_::CopyConstruct(arena, *from._impl_.msg_.data_);
+        break;
+      case kManifest:
+        _impl_.msg_.manifest_ = Super_::CopyConstruct(arena, *from._impl_.msg_.manifest_);
+        break;
+      case kEnd:
+        _impl_.msg_.end_ = Super_::CopyConstruct(arena, *from._impl_.msg_.end_);
+        break;
+  }
+
+  // @@protoc_insertion_point(copy_constructor:nexus.net.Frame)
+}
+PROTOBUF_NDEBUG_INLINE Frame::Impl_::Impl_(
+    [[maybe_unused]] ::google::protobuf::internal::InternalVisibility visibility,
+    [[maybe_unused]] ::google::protobuf::Arena* PROTOBUF_NULLABLE arena)
+      : msg_{},
+        _oneof_case_{} {}
+
+inline void Frame::SharedCtor(::_pb::Arena* PROTOBUF_NULLABLE arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+Frame::~Frame() {
+  // @@protoc_insertion_point(destructor:nexus.net.Frame)
+  SharedDtor(*this);
+}
+inline void Frame::SharedDtor(MessageLite& self) {
+  Frame& this_ = static_cast<Frame&>(self);
+  if constexpr (::_pbi::DebugHardenCheckHasBitConsistency()) {
+    this_.CheckHasBitConsistency();
+  }
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  if (this_.has_msg()) {
+    this_.clear_msg();
+  }
+  this_._impl_.~Impl_();
+}
+
+void Frame::clear_msg() {
+// @@protoc_insertion_point(one_of_clear_start:nexus.net.Frame)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  switch (msg_case()) {
+    case kData: {
+      if (GetArena() == nullptr) {
+        delete _impl_.msg_.data_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.msg_.data_);
+      }
+      break;
+    }
+    case kManifest: {
+      if (GetArena() == nullptr) {
+        delete _impl_.msg_.manifest_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.msg_.manifest_);
+      }
+      break;
+    }
+    case kEnd: {
+      if (GetArena() == nullptr) {
+        delete _impl_.msg_.end_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.msg_.end_);
+      }
+      break;
+    }
+    case MSG_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = MSG_NOT_SET;
+}
+
+
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const
+    ::google::protobuf::internal::ClassDataFull Frame_class_data_ =
+        Frame::InternalGenerateClassData_(Frame_globals_._default);
+
+PROTOBUF_ATTRIBUTE_WEAK const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL
+Frame::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&Frame_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(Frame_class_data_.tc_table);
+  return Frame_class_data_.base();
+}
+#else
+PROTOBUF_ATTRIBUTE_WEAK const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL
+Frame::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&Frame_globals_);
+  ::google::protobuf::internal::PrefetchToLocalCache(
+      ::google::protobuf::internal::MessageGlobalsBase::ToParseTableBase(&Frame_globals_));
+  return Frame_globals_.GetClassData();
+}
+#endif  // !PROTOBUF_MESSAGE_GLOBALS
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const Frame::ParseTableT_
+    Frame::_table_ =
+        Frame::InternalGenerateParseTable_(Frame_class_data_.base());
+#endif  // !PROTOBUF_MESSAGE_GLOBALS
+PROTOBUF_NOINLINE void Frame::Clear() {
+  auto& this_ [[maybe_unused]] = *this;
+  // @@protoc_insertion_point(message_clear_start:nexus.net.Frame)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits [[maybe_unused]] = 0;
+
+  clear_msg();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+::uint8_t* PROTOBUF_NONNULL Frame::_InternalSerialize(
+    const ::google::protobuf::MessageLite& base, ::uint8_t* PROTOBUF_NONNULL target,
+    ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream) {
+  const Frame& this_ = static_cast<const Frame&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+::uint8_t* PROTOBUF_NONNULL Frame::_InternalSerialize(
+    ::uint8_t* PROTOBUF_NONNULL target,
+    ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream) const {
+  const Frame& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  if constexpr (::_pbi::DebugHardenCheckHasBitConsistency()) {
+    this_.CheckHasBitConsistency();
+  }
+  // @@protoc_insertion_point(serialize_to_array_start:nexus.net.Frame)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  switch (this_.msg_case()) {
+    case kData: {
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          1, *this_._impl_.msg_.data_, this_._impl_.msg_.data_->GetCachedSize(), target,
+          stream);
+      break;
+    }
+    case kManifest: {
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          2, *this_._impl_.msg_.manifest_, this_._impl_.msg_.manifest_->GetCachedSize(), target,
+          stream);
+      break;
+    }
+    case kEnd: {
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          3, *this_._impl_.msg_.end_, this_._impl_.msg_.end_->GetCachedSize(), target,
+          stream);
+      break;
+    }
+    default:
+      break;
+  }
+  if (ABSL_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:nexus.net.Frame)
+  return target;
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+::size_t Frame::ByteSizeLong(const MessageLite& base) {
+  const Frame& this_ = static_cast<const Frame&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+::size_t Frame::ByteSizeLong() const {
+  const Frame& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  // @@protoc_insertion_point(message_byte_size_start:nexus.net.Frame)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits [[maybe_unused]] = 0;
+
+  switch (this_.msg_case()) {
+    // .nexus.net.DataPacket data = 1;
+    case kData: {
+      total_size += 1 +
+                    ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.msg_.data_);
+      break;
+    }
+    // .nexus.common.Manifest manifest = 2;
+    case kManifest: {
+      total_size += 1 +
+                    ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.msg_.manifest_);
+      break;
+    }
+    // .nexus.common.SessionEnd end = 3;
+    case kEnd: {
+      total_size += 1 +
+                    ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.msg_.end_);
+      break;
+    }
+    case MSG_NOT_SET: {
+      break;
+    }
+  }
+  return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                             &this_._impl_._cached_size_);
+}
+
+void Frame::MergeImpl(::google::protobuf::MessageLite& to_msg,
+                      const ::google::protobuf::MessageLite& from_msg) {
+   auto* const _this = static_cast<Frame*>(&to_msg);
+  auto& from = static_cast<const Frame&>(from_msg);
+  if constexpr (::_pbi::DebugHardenCheckHasBitConsistency()) {
+    from.CheckHasBitConsistency();
+  }
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:nexus.net.Frame)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  if (const uint32_t oneof_from_case =
+          from._impl_._oneof_case_[0]) {
+    const uint32_t oneof_to_case = _this->_impl_._oneof_case_[0];
+    const bool oneof_needs_init = oneof_to_case != oneof_from_case;
+    if (oneof_needs_init) {
+      if (oneof_to_case != 0) {
+        _this->clear_msg();
+      }
+      _this->_impl_._oneof_case_[0] = oneof_from_case;
+    }
+
+    switch (oneof_from_case) {
+      case kData: {
+        if (oneof_needs_init) {
+          _this->_impl_.msg_.data_ = Super_::CopyConstruct(arena, *from._impl_.msg_.data_);
+        } else {
+          _this->_impl_.msg_.data_->MergeFrom(*from._impl_.msg_.data_);
+        }
+        break;
+      }
+      case kManifest: {
+        if (oneof_needs_init) {
+          _this->_impl_.msg_.manifest_ = Super_::CopyConstruct(arena, *from._impl_.msg_.manifest_);
+        } else {
+          _this->_impl_.msg_.manifest_->MergeFrom(*from._impl_.msg_.manifest_);
+        }
+        break;
+      }
+      case kEnd: {
+        if (oneof_needs_init) {
+          _this->_impl_.msg_.end_ = Super_::CopyConstruct(arena, *from._impl_.msg_.end_);
+        } else {
+          _this->_impl_.msg_.end_->MergeFrom(*from._impl_.msg_.end_);
+        }
+        break;
+      }
+      case MSG_NOT_SET:
+        break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+}
+
+void Frame::CopyFrom(const Frame& from) {
+  // @@protoc_insertion_point(class_specific_copy_from_start:nexus.net.Frame)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void Frame::InternalSwap(Frame* PROTOBUF_RESTRICT PROTOBUF_NONNULL other) {
+  using ::std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.msg_, other->_impl_.msg_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+::google::protobuf::Metadata Frame::GetMetadata() const {
   return Super_::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

@@ -30,6 +30,7 @@
 #include "google/protobuf/repeated_field.h"  // IWYU pragma: export
 #include "google/protobuf/extension_set.h"  // IWYU pragma: export
 #include "google/protobuf/unknown_field_set.h"
+#include "common.pb.h"
 // @@protoc_insertion_point(includes)
 
 // Must be included last.
@@ -53,6 +54,14 @@ extern DataPacketGlobalsTypeInternal DataPacket_globals_;
 extern const ::google::protobuf::internal::ClassDataFull DataPacket_class_data_;
 #else
 extern const DataPacketGlobalsTypeInternal DataPacket_globals_;
+#endif  // PROTOBUF_MESSAGE_GLOBALS
+class Frame;
+struct FrameGlobalsTypeInternal;
+#ifndef PROTOBUF_MESSAGE_GLOBALS
+extern FrameGlobalsTypeInternal Frame_globals_;
+extern const ::google::protobuf::internal::ClassDataFull Frame_class_data_;
+#else
+extern const FrameGlobalsTypeInternal Frame_globals_;
 #endif  // PROTOBUF_MESSAGE_GLOBALS
 class NetworkSpeedState;
 struct NetworkSpeedStateGlobalsTypeInternal;
@@ -552,6 +561,275 @@ class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED DataPacket final : public ::google:
   union { Impl_ _impl_; };
   friend struct ::TableStruct_net_2eproto;
 };
+// -------------------------------------------------------------------
+
+class  PROTOBUF_FUTURE_ADD_EARLY_WARN_UNUSED Frame final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:nexus.net.Frame) */ {
+  using Super_ = ::google::protobuf::Message;
+
+ public:
+  inline Frame() : Frame(nullptr) {}
+  ~Frame() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(Frame* PROTOBUF_NONNULL msg, ::std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(Frame));
+  }
+#endif
+
+  template <typename = void>
+  explicit constexpr Frame(::google::protobuf::internal::ConstantInitialized,
+                           const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL
+                               class_data);
+
+  inline Frame(const Frame& from) : Frame(nullptr, from) {}
+  inline Frame(Frame&& from) noexcept : Frame(nullptr, ::std::move(from)) {}
+  inline Frame& operator=(const Frame& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Frame& operator=(Frame&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  [[nodiscard]] inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  [[nodiscard]] inline ::google::protobuf::UnknownFieldSet* PROTOBUF_NONNULL
+  mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  [[nodiscard]] static const ::google::protobuf::Descriptor* PROTOBUF_NONNULL descriptor() {
+    return GetDescriptor();
+  }
+  [[nodiscard]] static const ::google::protobuf::Descriptor* PROTOBUF_NONNULL
+  GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  [[nodiscard]] static const ::google::protobuf::Reflection* PROTOBUF_NONNULL GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  [[nodiscard]] static const Frame& default_instance() {
+    return *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<Frame>(&Frame_globals_);
+  }
+  enum MsgCase {
+    kData = 1,
+    kManifest = 2,
+    kEnd = 3,
+    MSG_NOT_SET = 0,
+  };
+  static constexpr int kIndexInFileMessages = 2;
+  friend void swap(Frame& a, Frame& b) { a.Swap(&b); }
+  inline void Swap(Frame* PROTOBUF_NONNULL other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Frame* PROTOBUF_NONNULL other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  [[nodiscard]] Frame* PROTOBUF_NONNULL
+  New(::google::protobuf::Arena* PROTOBUF_NULLABLE arena = nullptr) const {
+    return Super_::DefaultConstruct<Frame>(arena);
+  }
+  using Super_::CopyFrom;
+  void CopyFrom(const Frame& from);
+  using Super_::MergeFrom;
+  void MergeFrom(const Frame& from) { Frame::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(::google::protobuf::MessageLite& to_msg,
+                        const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  [[nodiscard]] bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  [[nodiscard]] static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  [[nodiscard]] static ::uint8_t* PROTOBUF_NONNULL _InternalSerialize(
+      const ::google::protobuf::MessageLite& msg, ::uint8_t* PROTOBUF_NONNULL target,
+      ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream);
+
+  public:
+  [[nodiscard]] ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  [[nodiscard]] ::uint8_t* PROTOBUF_NONNULL _InternalSerialize(
+      ::uint8_t* PROTOBUF_NONNULL target,
+      ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  [[nodiscard]] ::size_t ByteSizeLong() const final;
+  [[nodiscard]] ::uint8_t* PROTOBUF_NONNULL _InternalSerialize(
+      ::uint8_t* PROTOBUF_NONNULL target,
+      ::google::protobuf::io::EpsCopyOutputStream* PROTOBUF_NONNULL stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  [[nodiscard]] int GetCachedSize() const {
+    return _impl_._cached_size_.Get();
+  }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* PROTOBUF_NULLABLE arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(Frame* PROTOBUF_NONNULL other);
+ private:
+  static ::absl::string_view FullMessageName() { return "nexus.net.Frame"; }
+
+  explicit Frame(::google::protobuf::Arena* PROTOBUF_NULLABLE arena);
+  Frame(::google::protobuf::Arena* PROTOBUF_NULLABLE arena, const Frame& from);
+  Frame(
+      ::google::protobuf::Arena* PROTOBUF_NULLABLE arena, Frame&& from) noexcept
+      : Frame(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL GetClassData() const PROTOBUF_FINAL;
+  static void* PROTOBUF_NONNULL PlacementNew_(
+      const void* PROTOBUF_NONNULL, void* PROTOBUF_NONNULL mem,
+      ::google::protobuf::Arena* PROTOBUF_NULLABLE arena);
+  static constexpr auto InternalNewImpl_();
+
+ public:
+  static constexpr auto InternalGenerateClassData_(
+      const MessageLite& prototype,
+      const ::google::protobuf::internal::TcParseTableBase* PROTOBUF_NULLABLE tc_table = nullptr);
+
+  [[nodiscard]] ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kDataFieldNumber = 1,
+    kManifestFieldNumber = 2,
+    kEndFieldNumber = 3,
+  };
+  // .nexus.net.DataPacket data = 1;
+  [[nodiscard]] bool has_data() const;
+  private:
+  bool _internal_has_data() const;
+
+  public:
+  void clear_data() ;
+  [[nodiscard]] const ::nexus::net::DataPacket& data() const;
+  [[nodiscard]] ::nexus::net::DataPacket* PROTOBUF_NULLABLE release_data();
+  ::nexus::net::DataPacket* PROTOBUF_NONNULL mutable_data();
+  void set_allocated_data(::nexus::net::DataPacket* PROTOBUF_NULLABLE value);
+  void unsafe_arena_set_allocated_data(::nexus::net::DataPacket* PROTOBUF_NULLABLE value);
+  ::nexus::net::DataPacket* PROTOBUF_NULLABLE unsafe_arena_release_data();
+
+  private:
+  const ::nexus::net::DataPacket& _internal_data() const;
+  ::nexus::net::DataPacket* PROTOBUF_NONNULL _internal_mutable_data();
+
+  public:
+  // .nexus.common.Manifest manifest = 2;
+  [[nodiscard]] bool has_manifest() const;
+  private:
+  bool _internal_has_manifest() const;
+
+  public:
+  void clear_manifest() ;
+  [[nodiscard]] const ::nexus::common::Manifest& manifest() const;
+  [[nodiscard]] ::nexus::common::Manifest* PROTOBUF_NULLABLE release_manifest();
+  ::nexus::common::Manifest* PROTOBUF_NONNULL mutable_manifest();
+  void set_allocated_manifest(::nexus::common::Manifest* PROTOBUF_NULLABLE value);
+  void unsafe_arena_set_allocated_manifest(::nexus::common::Manifest* PROTOBUF_NULLABLE value);
+  ::nexus::common::Manifest* PROTOBUF_NULLABLE unsafe_arena_release_manifest();
+
+  private:
+  const ::nexus::common::Manifest& _internal_manifest() const;
+  ::nexus::common::Manifest* PROTOBUF_NONNULL _internal_mutable_manifest();
+
+  public:
+  // .nexus.common.SessionEnd end = 3;
+  [[nodiscard]] bool has_end() const;
+  private:
+  bool _internal_has_end() const;
+
+  public:
+  void clear_end() ;
+  [[nodiscard]] const ::nexus::common::SessionEnd& end() const;
+  [[nodiscard]] ::nexus::common::SessionEnd* PROTOBUF_NULLABLE release_end();
+  ::nexus::common::SessionEnd* PROTOBUF_NONNULL mutable_end();
+  void set_allocated_end(::nexus::common::SessionEnd* PROTOBUF_NULLABLE value);
+  void unsafe_arena_set_allocated_end(::nexus::common::SessionEnd* PROTOBUF_NULLABLE value);
+  ::nexus::common::SessionEnd* PROTOBUF_NULLABLE unsafe_arena_release_end();
+
+  private:
+  const ::nexus::common::SessionEnd& _internal_end() const;
+  ::nexus::common::SessionEnd* PROTOBUF_NONNULL _internal_mutable_end();
+
+  public:
+  void clear_msg();
+  MsgCase msg_case() const;
+  // @@protoc_insertion_point(class_scope:nexus.net.Frame)
+ private:
+  class _Internal;
+  void set_has_data();
+  void set_has_manifest();
+  void set_has_end();
+  [[nodiscard]] inline bool has_msg() const;
+  inline void clear_has_msg();
+  using ParseTableT_ =
+      ::google::protobuf::internal::TcParseTable<0, 3,
+                          3, 0,
+                          2>;
+  static constexpr ParseTableT_ InternalGenerateParseTable_(
+      const ::google::protobuf::internal::ClassData* PROTOBUF_NONNULL class_data);
+  friend class ::google::protobuf::internal::TcParser;
+  #ifndef PROTOBUF_MESSAGE_GLOBALS
+  static const ParseTableT_ _table_;
+  #endif
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  friend ::google::protobuf::internal::PrivateAccess;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                                    ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(
+        ::google::protobuf::internal::InternalVisibility visibility,
+        ::google::protobuf::Arena* PROTOBUF_NULLABLE arena);
+    inline explicit Impl_(
+        ::google::protobuf::internal::InternalVisibility visibility,
+        ::google::protobuf::Arena* PROTOBUF_NULLABLE arena, const Impl_& from,
+        const Frame& from_msg);
+    union MsgUnion {
+      constexpr MsgUnion() : _constinit_{} {}
+      ::google::protobuf::internal::ConstantInitialized _constinit_;
+      ::google::protobuf::Message* PROTOBUF_NULLABLE data_;
+      ::google::protobuf::Message* PROTOBUF_NULLABLE manifest_;
+      ::google::protobuf::Message* PROTOBUF_NULLABLE end_;
+    } msg_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::uint32_t _oneof_case_[1];
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_net_2eproto;
+};
 
 // ===================================================================
 
@@ -861,6 +1139,240 @@ inline void NetworkSpeedState::_internal_set_rate_bps(::uint64_t value) {
   _impl_.rate_bps_ = value;
 }
 
+// -------------------------------------------------------------------
+
+// Frame
+
+// .nexus.net.DataPacket data = 1;
+inline bool Frame::has_data() const {
+  return msg_case() == kData;
+}
+inline bool Frame::_internal_has_data() const {
+  return msg_case() == kData;
+}
+inline void Frame::set_has_data() {
+  _impl_._oneof_case_[0] = kData;
+}
+inline void Frame::clear_data() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (msg_case() == kData) {
+    if (GetArena() == nullptr) {
+      delete _impl_.msg_.data_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.msg_.data_);
+    }
+    clear_has_msg();
+  }
+}
+inline ::nexus::net::DataPacket* PROTOBUF_NULLABLE Frame::release_data() {
+  // @@protoc_insertion_point(field_release:nexus.net.Frame.data)
+  if (msg_case() == kData) {
+    clear_has_msg();
+    auto* temp = reinterpret_cast<::nexus::net::DataPacket*>(_impl_.msg_.data_);
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.msg_.data_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::nexus::net::DataPacket& Frame::_internal_data() const {
+  return msg_case() == kData ? static_cast<const ::nexus::net::DataPacket&>(*reinterpret_cast<::nexus::net::DataPacket*>(_impl_.msg_.data_))
+                     : *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<::nexus::net::DataPacket>(&::nexus::net::DataPacket_globals_);
+}
+inline const ::nexus::net::DataPacket& Frame::data() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:nexus.net.Frame.data)
+  return _internal_data();
+}
+inline ::nexus::net::DataPacket* PROTOBUF_NULLABLE Frame::unsafe_arena_release_data() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:nexus.net.Frame.data)
+  if (msg_case() == kData) {
+    clear_has_msg();
+    auto* temp = reinterpret_cast<::nexus::net::DataPacket*>(_impl_.msg_.data_);
+    _impl_.msg_.data_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Frame::unsafe_arena_set_allocated_data(
+    ::nexus::net::DataPacket* PROTOBUF_NULLABLE value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_msg();
+  if (value) {
+    set_has_data();
+    _impl_.msg_.data_ = reinterpret_cast<::google::protobuf::Message*>(value);
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:nexus.net.Frame.data)
+}
+inline ::nexus::net::DataPacket* PROTOBUF_NONNULL Frame::_internal_mutable_data() {
+  if (msg_case() != kData) {
+    clear_msg();
+    set_has_data();
+    _impl_.msg_.data_ = reinterpret_cast<::google::protobuf::Message*>(Super_::DefaultConstruct<::nexus::net::DataPacket>(GetArena()));
+  }
+  return reinterpret_cast<::nexus::net::DataPacket*>(_impl_.msg_.data_);
+}
+inline ::nexus::net::DataPacket* PROTOBUF_NONNULL Frame::mutable_data()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::nexus::net::DataPacket* _msg = _internal_mutable_data();
+  // @@protoc_insertion_point(field_mutable:nexus.net.Frame.data)
+  return _msg;
+}
+
+// .nexus.common.Manifest manifest = 2;
+inline bool Frame::has_manifest() const {
+  return msg_case() == kManifest;
+}
+inline bool Frame::_internal_has_manifest() const {
+  return msg_case() == kManifest;
+}
+inline void Frame::set_has_manifest() {
+  _impl_._oneof_case_[0] = kManifest;
+}
+inline ::nexus::common::Manifest* PROTOBUF_NULLABLE Frame::release_manifest() {
+  // @@protoc_insertion_point(field_release:nexus.net.Frame.manifest)
+  if (msg_case() == kManifest) {
+    clear_has_msg();
+    auto* temp = reinterpret_cast<::nexus::common::Manifest*>(_impl_.msg_.manifest_);
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.msg_.manifest_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::nexus::common::Manifest& Frame::_internal_manifest() const {
+  return msg_case() == kManifest ? static_cast<const ::nexus::common::Manifest&>(*reinterpret_cast<::nexus::common::Manifest*>(_impl_.msg_.manifest_))
+                     : *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<::nexus::common::Manifest>(&::nexus::common::Manifest_globals_);
+}
+inline const ::nexus::common::Manifest& Frame::manifest() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:nexus.net.Frame.manifest)
+  return _internal_manifest();
+}
+inline ::nexus::common::Manifest* PROTOBUF_NULLABLE Frame::unsafe_arena_release_manifest() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:nexus.net.Frame.manifest)
+  if (msg_case() == kManifest) {
+    clear_has_msg();
+    auto* temp = reinterpret_cast<::nexus::common::Manifest*>(_impl_.msg_.manifest_);
+    _impl_.msg_.manifest_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Frame::unsafe_arena_set_allocated_manifest(
+    ::nexus::common::Manifest* PROTOBUF_NULLABLE value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_msg();
+  if (value) {
+    set_has_manifest();
+    _impl_.msg_.manifest_ = reinterpret_cast<::google::protobuf::Message*>(value);
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:nexus.net.Frame.manifest)
+}
+inline ::nexus::common::Manifest* PROTOBUF_NONNULL Frame::_internal_mutable_manifest() {
+  if (msg_case() != kManifest) {
+    clear_msg();
+    set_has_manifest();
+    _impl_.msg_.manifest_ = reinterpret_cast<::google::protobuf::Message*>(Super_::DefaultConstruct<::nexus::common::Manifest>(GetArena()));
+  }
+  return reinterpret_cast<::nexus::common::Manifest*>(_impl_.msg_.manifest_);
+}
+inline ::nexus::common::Manifest* PROTOBUF_NONNULL Frame::mutable_manifest()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::nexus::common::Manifest* _msg = _internal_mutable_manifest();
+  // @@protoc_insertion_point(field_mutable:nexus.net.Frame.manifest)
+  return _msg;
+}
+
+// .nexus.common.SessionEnd end = 3;
+inline bool Frame::has_end() const {
+  return msg_case() == kEnd;
+}
+inline bool Frame::_internal_has_end() const {
+  return msg_case() == kEnd;
+}
+inline void Frame::set_has_end() {
+  _impl_._oneof_case_[0] = kEnd;
+}
+inline ::nexus::common::SessionEnd* PROTOBUF_NULLABLE Frame::release_end() {
+  // @@protoc_insertion_point(field_release:nexus.net.Frame.end)
+  if (msg_case() == kEnd) {
+    clear_has_msg();
+    auto* temp = reinterpret_cast<::nexus::common::SessionEnd*>(_impl_.msg_.end_);
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.msg_.end_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::nexus::common::SessionEnd& Frame::_internal_end() const {
+  return msg_case() == kEnd ? static_cast<const ::nexus::common::SessionEnd&>(*reinterpret_cast<::nexus::common::SessionEnd*>(_impl_.msg_.end_))
+                     : *::google::protobuf::internal::MessageGlobalsBase::ToDefaultInstance<::nexus::common::SessionEnd>(&::nexus::common::SessionEnd_globals_);
+}
+inline const ::nexus::common::SessionEnd& Frame::end() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:nexus.net.Frame.end)
+  return _internal_end();
+}
+inline ::nexus::common::SessionEnd* PROTOBUF_NULLABLE Frame::unsafe_arena_release_end() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:nexus.net.Frame.end)
+  if (msg_case() == kEnd) {
+    clear_has_msg();
+    auto* temp = reinterpret_cast<::nexus::common::SessionEnd*>(_impl_.msg_.end_);
+    _impl_.msg_.end_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Frame::unsafe_arena_set_allocated_end(
+    ::nexus::common::SessionEnd* PROTOBUF_NULLABLE value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_msg();
+  if (value) {
+    set_has_end();
+    _impl_.msg_.end_ = reinterpret_cast<::google::protobuf::Message*>(value);
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:nexus.net.Frame.end)
+}
+inline ::nexus::common::SessionEnd* PROTOBUF_NONNULL Frame::_internal_mutable_end() {
+  if (msg_case() != kEnd) {
+    clear_msg();
+    set_has_end();
+    _impl_.msg_.end_ = reinterpret_cast<::google::protobuf::Message*>(Super_::DefaultConstruct<::nexus::common::SessionEnd>(GetArena()));
+  }
+  return reinterpret_cast<::nexus::common::SessionEnd*>(_impl_.msg_.end_);
+}
+inline ::nexus::common::SessionEnd* PROTOBUF_NONNULL Frame::mutable_end()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::nexus::common::SessionEnd* _msg = _internal_mutable_end();
+  // @@protoc_insertion_point(field_mutable:nexus.net.Frame.end)
+  return _msg;
+}
+
+inline bool Frame::has_msg() const {
+  return msg_case() != MSG_NOT_SET;
+}
+inline void Frame::clear_has_msg() {
+  _impl_._oneof_case_[0] = MSG_NOT_SET;
+}
+inline Frame::MsgCase Frame::msg_case() const {
+  return Frame::MsgCase(_impl_._oneof_case_[0]);
+}
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__

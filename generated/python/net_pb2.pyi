@@ -1,6 +1,8 @@
+import common_pb2 as _common_pb2
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
-from typing import ClassVar as _ClassVar, Optional as _Optional
+from collections.abc import Mapping as _Mapping
+from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -25,3 +27,13 @@ class NetworkSpeedState(_message.Message):
     burst_index: int
     rate_bps: int
     def __init__(self, session_id: _Optional[str] = ..., burst_index: _Optional[int] = ..., rate_bps: _Optional[int] = ...) -> None: ...
+
+class Frame(_message.Message):
+    __slots__ = ("data", "manifest", "end")
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    MANIFEST_FIELD_NUMBER: _ClassVar[int]
+    END_FIELD_NUMBER: _ClassVar[int]
+    data: DataPacket
+    manifest: _common_pb2.Manifest
+    end: _common_pb2.SessionEnd
+    def __init__(self, data: _Optional[_Union[DataPacket, _Mapping]] = ..., manifest: _Optional[_Union[_common_pb2.Manifest, _Mapping]] = ..., end: _Optional[_Union[_common_pb2.SessionEnd, _Mapping]] = ...) -> None: ...

@@ -3,6 +3,7 @@
  * compiler version: 7.36.0
  * source: net.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
+import * as dependency_1 from "./common";
 import * as pb_1 from "google-protobuf";
 export namespace nexus.net {
     export class DataPacket extends pb_1.Message {
@@ -252,6 +253,147 @@ export namespace nexus.net {
         }
         static deserializeBinary(bytes: Uint8Array): NetworkSpeedState {
             return NetworkSpeedState.deserialize(bytes);
+        }
+    }
+    export class Frame extends pb_1.Message {
+        #one_of_decls: number[][] = [[1, 2, 3]];
+        constructor(data?: any[] | ({} & (({
+            data?: DataPacket;
+            manifest?: never;
+            end?: never;
+        } | {
+            data?: never;
+            manifest?: dependency_1.nexus.common.Manifest;
+            end?: never;
+        } | {
+            data?: never;
+            manifest?: never;
+            end?: dependency_1.nexus.common.SessionEnd;
+        })))) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("data" in data && data.data != undefined) {
+                    this.data = data.data;
+                }
+                if ("manifest" in data && data.manifest != undefined) {
+                    this.manifest = data.manifest;
+                }
+                if ("end" in data && data.end != undefined) {
+                    this.end = data.end;
+                }
+            }
+        }
+        get data() {
+            return pb_1.Message.getWrapperField(this, DataPacket, 1) as DataPacket;
+        }
+        set data(value: DataPacket) {
+            pb_1.Message.setOneofWrapperField(this, 1, this.#one_of_decls[0], value);
+        }
+        get has_data() {
+            return pb_1.Message.getField(this, 1) != null;
+        }
+        get manifest() {
+            return pb_1.Message.getWrapperField(this, dependency_1.nexus.common.Manifest, 2) as dependency_1.nexus.common.Manifest;
+        }
+        set manifest(value: dependency_1.nexus.common.Manifest) {
+            pb_1.Message.setOneofWrapperField(this, 2, this.#one_of_decls[0], value);
+        }
+        get has_manifest() {
+            return pb_1.Message.getField(this, 2) != null;
+        }
+        get end() {
+            return pb_1.Message.getWrapperField(this, dependency_1.nexus.common.SessionEnd, 3) as dependency_1.nexus.common.SessionEnd;
+        }
+        set end(value: dependency_1.nexus.common.SessionEnd) {
+            pb_1.Message.setOneofWrapperField(this, 3, this.#one_of_decls[0], value);
+        }
+        get has_end() {
+            return pb_1.Message.getField(this, 3) != null;
+        }
+        get msg() {
+            const cases: {
+                [index: number]: "none" | "data" | "manifest" | "end";
+            } = {
+                0: "none",
+                1: "data",
+                2: "manifest",
+                3: "end"
+            };
+            return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3])];
+        }
+        static fromObject(data: {
+            data?: ReturnType<typeof DataPacket.prototype.toObject>;
+            manifest?: ReturnType<typeof dependency_1.nexus.common.Manifest.prototype.toObject>;
+            end?: ReturnType<typeof dependency_1.nexus.common.SessionEnd.prototype.toObject>;
+        }): Frame {
+            const message = new Frame({});
+            if (data.data != null) {
+                message.data = DataPacket.fromObject(data.data);
+            }
+            if (data.manifest != null) {
+                message.manifest = dependency_1.nexus.common.Manifest.fromObject(data.manifest);
+            }
+            if (data.end != null) {
+                message.end = dependency_1.nexus.common.SessionEnd.fromObject(data.end);
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                data?: ReturnType<typeof DataPacket.prototype.toObject>;
+                manifest?: ReturnType<typeof dependency_1.nexus.common.Manifest.prototype.toObject>;
+                end?: ReturnType<typeof dependency_1.nexus.common.SessionEnd.prototype.toObject>;
+            } = {};
+            if (this.data != null) {
+                data.data = this.data.toObject();
+            }
+            if (this.manifest != null) {
+                data.manifest = this.manifest.toObject();
+            }
+            if (this.end != null) {
+                data.end = this.end.toObject();
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.has_data)
+                writer.writeMessage(1, this.data, () => this.data.serialize(writer));
+            if (this.has_manifest)
+                writer.writeMessage(2, this.manifest, () => this.manifest.serialize(writer));
+            if (this.has_end)
+                writer.writeMessage(3, this.end, () => this.end.serialize(writer));
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Frame {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Frame();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        reader.readMessage(message.data, () => message.data = DataPacket.deserialize(reader));
+                        break;
+                    case 2:
+                        reader.readMessage(message.manifest, () => message.manifest = dependency_1.nexus.common.Manifest.deserialize(reader));
+                        break;
+                    case 3:
+                        reader.readMessage(message.end, () => message.end = dependency_1.nexus.common.SessionEnd.deserialize(reader));
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): Frame {
+            return Frame.deserialize(bytes);
         }
     }
 }

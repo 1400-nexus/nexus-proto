@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package nexus.net;
 
+import "common.proto";
+
 message DataPacket {
   string session_id = 1;
   uint32 block_id = 2;
@@ -13,4 +15,23 @@ message NetworkSpeedState {
   string session_id = 1;
   uint32 burst_index = 2;
   uint64 rate_bps = 3;
+}
+
+// Every datagram on the wire is a Frame.
+//
+// Three different message types travel over the link - DataPacket, Manifest
+// and SessionEnd - and they share no header. Without a discriminator a
+// receiver cannot tell which one it pulled off the socket, and protobuf does
+// not error on a mismatch: it parses a Manifest as a DataPacket and returns a
+// plausible block_id. On a link with no back channel that means filing garbage
+// into a decode that would otherwise have succeeded, with nothing to notice it.
+//
+// Same reasoning as ipc.Envelope, and the same shape. Costs 3 bytes per
+// datagram, against 33 bytes of measured headroom below the 1500-byte MTU.
+message Frame {
+  oneof msg {
+    DataPacket              data     = 1;
+    nexus.common.Manifest   manifest = 2;
+    nexus.common.SessionEnd end      = 3;
+  }
 }

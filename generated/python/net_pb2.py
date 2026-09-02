@@ -22,17 +22,20 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
+import common_pb2 as common__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tnet.proto\x12\tnexus.net\"V\n\nDataPacket\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x10\n\x08\x62lock_id\x18\x02 \x01(\r\x12\x11\n\tsymbol_id\x18\x03 \x01(\r\x12\x0f\n\x07payload\x18\x04 \x01(\x0c\"N\n\x11NetworkSpeedState\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x13\n\x0b\x62urst_index\x18\x02 \x01(\r\x12\x10\n\x08rate_bps\x18\x03 \x01(\x04\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tnet.proto\x12\tnexus.net\x1a\x0c\x63ommon.proto\"V\n\nDataPacket\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x10\n\x08\x62lock_id\x18\x02 \x01(\r\x12\x11\n\tsymbol_id\x18\x03 \x01(\r\x12\x0f\n\x07payload\x18\x04 \x01(\x0c\"N\n\x11NetworkSpeedState\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x13\n\x0b\x62urst_index\x18\x02 \x01(\r\x12\x10\n\x08rate_bps\x18\x03 \x01(\x04\"\x8a\x01\n\x05\x46rame\x12%\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x15.nexus.net.DataPacketH\x00\x12*\n\x08manifest\x18\x02 \x01(\x0b\x32\x16.nexus.common.ManifestH\x00\x12\'\n\x03\x65nd\x18\x03 \x01(\x0b\x32\x18.nexus.common.SessionEndH\x00\x42\x05\n\x03msgb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'net_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_DATAPACKET']._serialized_start=24
-  _globals['_DATAPACKET']._serialized_end=110
-  _globals['_NETWORKSPEEDSTATE']._serialized_start=112
-  _globals['_NETWORKSPEEDSTATE']._serialized_end=190
+  _globals['_DATAPACKET']._serialized_start=38
+  _globals['_DATAPACKET']._serialized_end=124
+  _globals['_NETWORKSPEEDSTATE']._serialized_start=126
+  _globals['_NETWORKSPEEDSTATE']._serialized_end=204
+  _globals['_FRAME']._serialized_start=207
+  _globals['_FRAME']._serialized_end=345
 # @@protoc_insertion_point(module_scope)
