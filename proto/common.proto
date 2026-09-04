@@ -11,6 +11,14 @@ message Manifest {
   uint32 n = 6;
   uint32 block_bytes = 7;
   uint32 total_blocks = 8;
+  // Shard residue, not the sender's process identity. A sender transmits
+  // exactly the blocks where block_id % total_senders == sender_id.
+  // file-monitor assigns this positionally over the currently live senders,
+  // not from each sender's own id: with senders 0 and 2 alive (1 dead), it
+  // assigns residues 0 and 1, never 0 and 2. A sender that derives its shard
+  // from its own process id instead of this field will, the moment any
+  // other sender dies, silently stop transmitting up to half the file --
+  // with no error on either side.
   uint32 sender_id = 9;
   uint64 sender_bps_limit = 10;
 }
