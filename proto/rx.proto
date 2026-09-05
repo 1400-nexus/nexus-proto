@@ -45,6 +45,11 @@ message Config {
 
 message SessionOpen {
   string session_id = 1;
+  // Absolute path on the local filesystem. The manager resolves this against
+  // its own staging directory before sending it -- a receiver must write
+  // directly to this path and must NOT reconstruct one from
+  // Manifest.filepath, which is relative and resolved against a directory
+  // only the manager (and now, via this field, the receiver) knows.
   string dest_path = 2;
   uint32 total_blocks = 3;
   uint32 k = 4;
