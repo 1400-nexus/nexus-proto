@@ -43,6 +43,13 @@ message Config {
   string journal_dir = 3;
 }
 
+// Idempotent, and re-sent whenever a receiver needs it: once as a broadcast
+// when the session opens, then again to any receiver that reconnects, whose
+// ManifestSeen arrived after another receiver's had already created the
+// session, or that sends a fresh ReceiverHello while sessions are open. A
+// receiver must treat a repeat as a no-op -- same session_id, dest_path and
+// offsets every time -- and must not re-initialise state or raise an error
+// on one.
 message SessionOpen {
   string session_id = 1;
   // Absolute path on the local filesystem. The manager resolves this against
