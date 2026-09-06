@@ -18,9 +18,19 @@ message ManifestSeen {
   nexus.common.Manifest manifest = 2;
 }
 
+// A receiver MUST make a block's decoded bytes durable on disk -- write then
+// fsync/fdatasync, or O_SYNC -- BEFORE it reports the block here. The session
+// manager journals every BlockDecoded and, on an adopting restart, counts a
+// journaled block as complete and never asks for it again. A block reported
+// while its bytes are still in a buffer, followed by a manager crash in that
+// window, leaves the recovered file with a hole that only surfaces as a hash
+// mismatch when the whole transfer is verified -- with nothing pointing at
+// which receiver or which block. The durability cost is on the receiver's
+// hot path by design; the alternative (the manager re-reading every staged
+// file on recovery) defeats the journal.
 message BlockDecoded {
   string session_id = 1;
-  uint32 receiver_id = 2;
+  uint32 receiver_id = 2;  // ignored: the manager keys on the connection
   repeated uint32 block_ids = 3;
 }
 
