@@ -15,6 +15,14 @@ message AssignSession {
   uint32 total_senders = 2;
   string target_host = 3;
   uint32 target_port = 4;
+  // Absolute path to the source file on file-monitor's machine. The sender
+  // mmaps exactly this. It must NOT be reconstructed from Manifest.filepath
+  // -- that field is relative and exists only so the RX side can name its
+  // output; joining it onto the sender's own idea of a watch directory is
+  // the implicit coupling that already caused a path failure once on the RX
+  // side. Empty only if file-monitor could not resolve the path, in which
+  // case the assignment is invalid.
+  string source_path = 5;
 }
 
 message UpdateRate {

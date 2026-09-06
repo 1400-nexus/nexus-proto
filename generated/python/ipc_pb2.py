@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 import common_pb2 as common__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tipc.proto\x12\tnexus.ipc\x1a\x0c\x63ommon.proto\"A\n\x0bSenderHello\x12\x11\n\tsender_id\x18\x01 \x01(\r\x12\x0b\n\x03pid\x18\x02 \x01(\r\x12\x12\n\nproto_hash\x18\x03 \x01(\x0c\"z\n\rAssignSession\x12(\n\x08manifest\x18\x01 \x01(\x0b\x32\x16.nexus.common.Manifest\x12\x15\n\rtotal_senders\x18\x02 \x01(\r\x12\x13\n\x0btarget_host\x18\x03 \x01(\t\x12\x13\n\x0btarget_port\x18\x04 \x01(\r\"2\n\nUpdateRate\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x10\n\x08rate_bps\x18\x02 \x01(\x04\"\x1b\n\x05\x41\x62ort\x12\x12\n\nsession_id\x18\x01 \x01(\t\"d\n\x0eSenderProgress\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x14\n\x0cstripes_done\x18\x02 \x01(\x04\x12\x14\n\x0cpackets_sent\x18\x03 \x01(\x04\x12\x12\n\nbytes_sent\x18\x04 \x01(\x04\";\n\x0fSessionComplete\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x14\n\x0cpackets_sent\x18\x02 \x01(\x04\":\n\tHeartbeat\x12\x12\n\nprocess_id\x18\x01 \x01(\r\x12\x19\n\x11timestamp_unix_ms\x18\x02 \x01(\x04\"k\n\x0fLocalCongestion\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x15\n\renobufs_count\x18\x02 \x01(\x04\x12\x13\n\x0bqdisc_drops\x18\x03 \x01(\x04\x12\x18\n\x10\x63urrent_rate_bps\x18\x04 \x01(\x04\"\x97\x03\n\x08\x45nvelope\x12.\n\x0csender_hello\x18\x01 \x01(\x0b\x32\x16.nexus.ipc.SenderHelloH\x00\x12)\n\theartbeat\x18\x02 \x01(\x0b\x32\x14.nexus.ipc.HeartbeatH\x00\x12\x34\n\x0fsender_progress\x18\x03 \x01(\x0b\x32\x19.nexus.ipc.SenderProgressH\x00\x12\x36\n\x10session_complete\x18\x04 \x01(\x0b\x32\x1a.nexus.ipc.SessionCompleteH\x00\x12\x36\n\x10local_congestion\x18\x05 \x01(\x0b\x32\x1a.nexus.ipc.LocalCongestionH\x00\x12\x32\n\x0e\x61ssign_session\x18\x06 \x01(\x0b\x32\x18.nexus.ipc.AssignSessionH\x00\x12,\n\x0bupdate_rate\x18\x07 \x01(\x0b\x32\x15.nexus.ipc.UpdateRateH\x00\x12!\n\x05\x61\x62ort\x18\x08 \x01(\x0b\x32\x10.nexus.ipc.AbortH\x00\x42\x05\n\x03msgb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tipc.proto\x12\tnexus.ipc\x1a\x0c\x63ommon.proto\"A\n\x0bSenderHello\x12\x11\n\tsender_id\x18\x01 \x01(\r\x12\x0b\n\x03pid\x18\x02 \x01(\r\x12\x12\n\nproto_hash\x18\x03 \x01(\x0c\"\x8f\x01\n\rAssignSession\x12(\n\x08manifest\x18\x01 \x01(\x0b\x32\x16.nexus.common.Manifest\x12\x15\n\rtotal_senders\x18\x02 \x01(\r\x12\x13\n\x0btarget_host\x18\x03 \x01(\t\x12\x13\n\x0btarget_port\x18\x04 \x01(\r\x12\x13\n\x0bsource_path\x18\x05 \x01(\t\"2\n\nUpdateRate\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x10\n\x08rate_bps\x18\x02 \x01(\x04\"\x1b\n\x05\x41\x62ort\x12\x12\n\nsession_id\x18\x01 \x01(\t\"d\n\x0eSenderProgress\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x14\n\x0cstripes_done\x18\x02 \x01(\x04\x12\x14\n\x0cpackets_sent\x18\x03 \x01(\x04\x12\x12\n\nbytes_sent\x18\x04 \x01(\x04\";\n\x0fSessionComplete\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x14\n\x0cpackets_sent\x18\x02 \x01(\x04\":\n\tHeartbeat\x12\x12\n\nprocess_id\x18\x01 \x01(\r\x12\x19\n\x11timestamp_unix_ms\x18\x02 \x01(\x04\"k\n\x0fLocalCongestion\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x15\n\renobufs_count\x18\x02 \x01(\x04\x12\x13\n\x0bqdisc_drops\x18\x03 \x01(\x04\x12\x18\n\x10\x63urrent_rate_bps\x18\x04 \x01(\x04\"\x97\x03\n\x08\x45nvelope\x12.\n\x0csender_hello\x18\x01 \x01(\x0b\x32\x16.nexus.ipc.SenderHelloH\x00\x12)\n\theartbeat\x18\x02 \x01(\x0b\x32\x14.nexus.ipc.HeartbeatH\x00\x12\x34\n\x0fsender_progress\x18\x03 \x01(\x0b\x32\x19.nexus.ipc.SenderProgressH\x00\x12\x36\n\x10session_complete\x18\x04 \x01(\x0b\x32\x1a.nexus.ipc.SessionCompleteH\x00\x12\x36\n\x10local_congestion\x18\x05 \x01(\x0b\x32\x1a.nexus.ipc.LocalCongestionH\x00\x12\x32\n\x0e\x61ssign_session\x18\x06 \x01(\x0b\x32\x18.nexus.ipc.AssignSessionH\x00\x12,\n\x0bupdate_rate\x18\x07 \x01(\x0b\x32\x15.nexus.ipc.UpdateRateH\x00\x12!\n\x05\x61\x62ort\x18\x08 \x01(\x0b\x32\x10.nexus.ipc.AbortH\x00\x42\x05\n\x03msgb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,20 +34,20 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_SENDERHELLO']._serialized_start=38
   _globals['_SENDERHELLO']._serialized_end=103
-  _globals['_ASSIGNSESSION']._serialized_start=105
-  _globals['_ASSIGNSESSION']._serialized_end=227
-  _globals['_UPDATERATE']._serialized_start=229
-  _globals['_UPDATERATE']._serialized_end=279
-  _globals['_ABORT']._serialized_start=281
-  _globals['_ABORT']._serialized_end=308
-  _globals['_SENDERPROGRESS']._serialized_start=310
-  _globals['_SENDERPROGRESS']._serialized_end=410
-  _globals['_SESSIONCOMPLETE']._serialized_start=412
-  _globals['_SESSIONCOMPLETE']._serialized_end=471
-  _globals['_HEARTBEAT']._serialized_start=473
-  _globals['_HEARTBEAT']._serialized_end=531
-  _globals['_LOCALCONGESTION']._serialized_start=533
-  _globals['_LOCALCONGESTION']._serialized_end=640
-  _globals['_ENVELOPE']._serialized_start=643
-  _globals['_ENVELOPE']._serialized_end=1050
+  _globals['_ASSIGNSESSION']._serialized_start=106
+  _globals['_ASSIGNSESSION']._serialized_end=249
+  _globals['_UPDATERATE']._serialized_start=251
+  _globals['_UPDATERATE']._serialized_end=301
+  _globals['_ABORT']._serialized_start=303
+  _globals['_ABORT']._serialized_end=330
+  _globals['_SENDERPROGRESS']._serialized_start=332
+  _globals['_SENDERPROGRESS']._serialized_end=432
+  _globals['_SESSIONCOMPLETE']._serialized_start=434
+  _globals['_SESSIONCOMPLETE']._serialized_end=493
+  _globals['_HEARTBEAT']._serialized_start=495
+  _globals['_HEARTBEAT']._serialized_end=553
+  _globals['_LOCALCONGESTION']._serialized_start=555
+  _globals['_LOCALCONGESTION']._serialized_end=662
+  _globals['_ENVELOPE']._serialized_start=665
+  _globals['_ENVELOPE']._serialized_end=1072
 # @@protoc_insertion_point(module_scope)

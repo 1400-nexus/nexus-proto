@@ -17,16 +17,18 @@ class SenderHello(_message.Message):
     def __init__(self, sender_id: _Optional[int] = ..., pid: _Optional[int] = ..., proto_hash: _Optional[bytes] = ...) -> None: ...
 
 class AssignSession(_message.Message):
-    __slots__ = ("manifest", "total_senders", "target_host", "target_port")
+    __slots__ = ("manifest", "total_senders", "target_host", "target_port", "source_path")
     MANIFEST_FIELD_NUMBER: _ClassVar[int]
     TOTAL_SENDERS_FIELD_NUMBER: _ClassVar[int]
     TARGET_HOST_FIELD_NUMBER: _ClassVar[int]
     TARGET_PORT_FIELD_NUMBER: _ClassVar[int]
+    SOURCE_PATH_FIELD_NUMBER: _ClassVar[int]
     manifest: _common_pb2.Manifest
     total_senders: int
     target_host: str
     target_port: int
-    def __init__(self, manifest: _Optional[_Union[_common_pb2.Manifest, _Mapping]] = ..., total_senders: _Optional[int] = ..., target_host: _Optional[str] = ..., target_port: _Optional[int] = ...) -> None: ...
+    source_path: str
+    def __init__(self, manifest: _Optional[_Union[_common_pb2.Manifest, _Mapping]] = ..., total_senders: _Optional[int] = ..., target_host: _Optional[str] = ..., target_port: _Optional[int] = ..., source_path: _Optional[str] = ...) -> None: ...
 
 class UpdateRate(_message.Message):
     __slots__ = ("session_id", "rate_bps")
