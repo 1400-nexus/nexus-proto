@@ -72,13 +72,37 @@ message SessionOpen {
   uint32 k = 4;
   uint32 n = 5;
   uint32 block_bytes = 6;
-  uint64 block_table_offset = 7;
-  uint64 bitmap_offset = 8;
+  // DEPRECATED. The receiver does not write either of these regions;
+  // BlockDecoded over UDS is the only progress path. Kept wire-present and
+  // still populated with valid offsets for one release so nothing breaks
+  // mid-re-pin. Becomes `reserved 7, 8;` once all peers have moved past
+  // this commit. Do not read.
+  uint64 block_table_offset = 7 [deprecated = true];
+  uint64 bitmap_offset = 8 [deprecated = true];
+  // Size of the file in bytes, verbatim from Manifest.file_size.
+  //
+  // Required. SessionOpen is idempotent and may be re-sent at any time,
+  // including to a receiver that connects after another receiver already
+  // sent ManifestSeen. For that receiver, SessionOpen is its *only* source
+  // of session parameters -- it never saw the Manifest. Without file_size it
+  // cannot size its staging view or bounds-check the final (short) block.
+  uint64 file_size = 9;
 }
 
 message PurgeSession {
   string session_id = 1;
-  string reason = 2;
+  // Why the session ended. Diagnostic only -- the receiver's action is the
+  // same for all three. Included so a receiver log line can distinguish
+  // "we finished" from "we gave up", which is otherwise invisible on the
+  // RX side.
+  PurgeReason reason = 2;
+}
+
+enum PurgeReason {
+  PURGE_REASON_UNSPECIFIED = 0;
+  PURGE_REASON_PUBLISHED = 1; // all blocks decoded, BLAKE3 matched, published
+  PURGE_REASON_QUARANTINED = 2; // all blocks decoded, BLAKE3 mismatched
+  PURGE_REASON_INCOMPLETE = 3; // stalled below total_blocks, gave up
 }
 
 message RxEnvelope {

@@ -1,12 +1,24 @@
 import common_pb2 as _common_pb2
 import ipc_pb2 as _ipc_pb2
 from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from collections.abc import Iterable as _Iterable, Mapping as _Mapping
 from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
+
+class PurgeReason(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    PURGE_REASON_UNSPECIFIED: _ClassVar[PurgeReason]
+    PURGE_REASON_PUBLISHED: _ClassVar[PurgeReason]
+    PURGE_REASON_QUARANTINED: _ClassVar[PurgeReason]
+    PURGE_REASON_INCOMPLETE: _ClassVar[PurgeReason]
+PURGE_REASON_UNSPECIFIED: PurgeReason
+PURGE_REASON_PUBLISHED: PurgeReason
+PURGE_REASON_QUARANTINED: PurgeReason
+PURGE_REASON_INCOMPLETE: PurgeReason
 
 class ReceiverHello(_message.Message):
     __slots__ = ("receiver_id", "pid", "listen_port", "proto_hash")
@@ -73,7 +85,7 @@ class Config(_message.Message):
     def __init__(self, shm_name: _Optional[str] = ..., staging_dir: _Optional[str] = ..., journal_dir: _Optional[str] = ...) -> None: ...
 
 class SessionOpen(_message.Message):
-    __slots__ = ("session_id", "dest_path", "total_blocks", "k", "n", "block_bytes", "block_table_offset", "bitmap_offset")
+    __slots__ = ("session_id", "dest_path", "total_blocks", "k", "n", "block_bytes", "block_table_offset", "bitmap_offset", "file_size")
     SESSION_ID_FIELD_NUMBER: _ClassVar[int]
     DEST_PATH_FIELD_NUMBER: _ClassVar[int]
     TOTAL_BLOCKS_FIELD_NUMBER: _ClassVar[int]
@@ -82,6 +94,7 @@ class SessionOpen(_message.Message):
     BLOCK_BYTES_FIELD_NUMBER: _ClassVar[int]
     BLOCK_TABLE_OFFSET_FIELD_NUMBER: _ClassVar[int]
     BITMAP_OFFSET_FIELD_NUMBER: _ClassVar[int]
+    FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
     session_id: str
     dest_path: str
     total_blocks: int
@@ -90,15 +103,16 @@ class SessionOpen(_message.Message):
     block_bytes: int
     block_table_offset: int
     bitmap_offset: int
-    def __init__(self, session_id: _Optional[str] = ..., dest_path: _Optional[str] = ..., total_blocks: _Optional[int] = ..., k: _Optional[int] = ..., n: _Optional[int] = ..., block_bytes: _Optional[int] = ..., block_table_offset: _Optional[int] = ..., bitmap_offset: _Optional[int] = ...) -> None: ...
+    file_size: int
+    def __init__(self, session_id: _Optional[str] = ..., dest_path: _Optional[str] = ..., total_blocks: _Optional[int] = ..., k: _Optional[int] = ..., n: _Optional[int] = ..., block_bytes: _Optional[int] = ..., block_table_offset: _Optional[int] = ..., bitmap_offset: _Optional[int] = ..., file_size: _Optional[int] = ...) -> None: ...
 
 class PurgeSession(_message.Message):
     __slots__ = ("session_id", "reason")
     SESSION_ID_FIELD_NUMBER: _ClassVar[int]
     REASON_FIELD_NUMBER: _ClassVar[int]
     session_id: str
-    reason: str
-    def __init__(self, session_id: _Optional[str] = ..., reason: _Optional[str] = ...) -> None: ...
+    reason: PurgeReason
+    def __init__(self, session_id: _Optional[str] = ..., reason: _Optional[_Union[PurgeReason, str]] = ...) -> None: ...
 
 class RxEnvelope(_message.Message):
     __slots__ = ("receiver_hello", "manifest_seen", "block_decoded", "receiver_stats", "heartbeat", "config", "session_open", "purge_session")
