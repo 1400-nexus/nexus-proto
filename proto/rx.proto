@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package nexus.rx;
+
+import "common.proto";
+
+import "ipc.proto";
+
+message ReceiverHello {
+  uint32 receiver_id = 1;
+  uint32 pid = 2;
+  uint32 listen_port = 3;
+  bytes proto_hash = 4;
+}
+
+message ManifestSeen {
+  uint32 receiver_id = 1;
+  nexus.common.Manifest manifest = 2;
+}
+
+// A receiver MUST make a block's decoded bytes durable on disk -- write then
+// fsync/fdatasync, or O_SYNC -- BEFORE it reports the block here. The session
+// manager journals every BlockDecoded and, on an adopting restart, counts a
+// journaled block as complete and never asks for it again. A block reported
+// while its bytes are still in a buffer, followed by a manager crash in that
+// window, leaves the recovered file with a hole that only surfaces as a hash
+// mismatch when the whole transfer is verified -- with nothing pointing at
+// which receiver or which block. The durability cost is on the receiver's
+// hot path by design; the alternative (the manager re-reading every staged
+// file on recovery) defeats the journal.
+message BlockDecoded {
+  string session_id = 1;
+  uint32 receiver_id = 2;  // ignored: the manager keys on the connection
+  repeated uint32 block_ids = 3;
+}
+
+message ReceiverStats {
+  uint32 receiver_id = 1;
+  uint64 pkts_ok = 2;
+  uint64 crc_fail = 3;
+  uint64 bad_magic = 4;
+  uint64 unparsable = 5;
+  uint64 duplicates = 6;
+  uint64 no_session = 7;
+  uint64 arena_exhausted = 8;
+  uint64 kernel_drops = 9;
+  uint32 arena_high_water_pct = 10;
+}
+
+message Config {
+  string shm_name = 1;
+  string staging_dir = 2;
+  string journal_dir = 3;
+}
+
+// Idempotent, and re-sent whenever a receiver needs it: once as a broadcast
+// when the session opens, then again to any receiver that reconnects, whose
+// ManifestSeen arrived after another receiver's had already created the
+// session, or that sends a fresh ReceiverHello while sessions are open. A
+// receiver must treat a repeat as a no-op -- same session_id, dest_path and
+// offsets every time -- and must not re-initialise state or raise an error
+// on one.
+message SessionOpen {
+  string session_id = 1;
+  // Absolute path on the local filesystem. The manager resolves this against
+  // its own staging directory before sending it -- a receiver must write
+  // directly to this path and must NOT reconstruct one from
+  // Manifest.filepath, which is relative and resolved against a directory
+  // only the manager (and now, via this field, the receiver) knows.
+  string dest_path = 2;
+  uint32 total_blocks = 3;
+  uint32 k = 4;
+  uint32 n = 5;
+  uint32 block_bytes = 6;
+  uint64 block_table_offset = 7;
+  uint64 bitmap_offset = 8;
+}
+
+message PurgeSession {
+  string session_id = 1;
+  string reason = 2;
+}
+
+message RxEnvelope {
+  oneof msg {
+    ReceiverHello receiver_hello = 1;
+    ManifestSeen manifest_seen = 2;
+    BlockDecoded block_decoded = 3;
+    ReceiverStats receiver_stats = 4;
+    nexus.ipc.Heartbeat heartbeat = 5;
+
+    Config config = 10;
+    SessionOpen session_open = 11;
+    PurgeSession purge_session = 12;
+  }
+}
